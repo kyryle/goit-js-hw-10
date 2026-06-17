@@ -2,6 +2,7 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
+const input = document.querySelector("input#datetime-picker")
 const btn = document.querySelector(".btn")
 let daysLeft = document.querySelector('.timer[data-days]')
 let hoursLeft = document.querySelector('.timer[data-hours]')
@@ -17,7 +18,7 @@ const options = {
   minuteIncrement: 1,
     onClose(selectedDates) {
         console.log(selectedDates[0]);
-        if (selectedDates[0] < new Date()) {
+        if (selectedDates[0] <= new Date()) {
             iziToast.show({
     title: 'Error',
     message: 'Please choose a date in the future'
@@ -25,11 +26,10 @@ const options = {
             btn.disabled = true;
         } else {
           btn.disabled = false;
-          btn.style.pointerEvents = 'auto'
           userSelectedDate = selectedDates
-          timeSum = userSelectedDate[0] - new Date()
-          totalTime = convertMs(timeSum)
-          console.log(totalTime)
+          // timeSum = userSelectedDate[0] - new Date()
+          // totalTime = convertMs(timeSum)
+          // console.log(totalTime)
   }},
 };
 
@@ -37,19 +37,23 @@ flatpickr("#datetime-picker", options);
 
 btn.addEventListener("click", (e) => {
   btn.disabled = true;
-  btn.style.pointerEvents = 'none'
+  input.disabled = true;
+  timeSum = userSelectedDate[0] - new Date()
+  totalTime = convertMs(timeSum)
+  console.log(totalTime)
   let timer = setInterval(() => {
     daysLeft.textContent = totalTime.days
     hoursLeft.textContent = totalTime.hours
     minutesLeft.textContent = totalTime.minutes
     secondsLeft.textContent = totalTime.seconds
-    timeSum - 1000
-    convertMs(timeSum)
-    addZero(convertMs)
-    if (convertMs(timeSum) < 1) {
+    timeSum -= 1000
+    totalTime = convertMs(timeSum)
+    addZero(timeSum)
+    if (daysLeft.textContent && hoursLeft.textContent && minutesLeft.textContent && secondsLeft.textContent < 1) {
       clearInterval(timer)
       btn.disabled = false;
-      btn.style.pointerEvents = 'auto'
+      input.value = ""
+      input.disabled = false;
     }
   },1000)
 })
@@ -75,8 +79,10 @@ function convertMs(ms) {
 }
 
 function addZero(time) {
-  time.days.padStart(2, "0")
-  time.hours.padStart(2, "0")
-  time.minutes.padStart(2, "0")
-  time.seconds.padStart(2, "0")
+  return {
+    days: String(time.days).padStart(2, "0"),
+    hours: String(time.hours).padStart(2, "0"),
+    minutes: String(time.minutes).padStart(2, "0"),
+    seconds: String(time.seconds).padStart(2, "0")
+  }
 }
