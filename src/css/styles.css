@@ -16,3 +16,39 @@
 @import url('./badges.css');
 @import url('./back-link.css');
 @import url('./footer.css');
+
+
+#datetime-picker {
+  max-width: 230px;
+}
+
+.btn {
+  width: 50px;
+  pointer-events: none;
+}
+
+.wrapper {
+  display: flex;
+  gap: 4px;
+  margin-left: 16px;
+}
+
+.timer {
+  display: flex;
+  gap: 16px;
+  margin-left: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.value {
+  font-size: 36px;
+}
+
+.label {
+  font-size: 18px;
+}
