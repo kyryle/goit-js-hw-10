@@ -4,10 +4,10 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 const input = document.querySelector("input#datetime-picker")
 const btn = document.querySelector(".btn")
-let daysLeft = document.querySelector('.timer[data-days]')
-let hoursLeft = document.querySelector('.timer[data-hours]')
-let minutesLeft = document.querySelector('.timer[data-minutes]')
-let secondsLeft = document.querySelector('.timer[data-seconds]')
+let daysLeft = document.querySelector('[data-days]')
+let hoursLeft = document.querySelector('[data-hours]')
+let minutesLeft = document.querySelector('[data-minutes]')
+let secondsLeft = document.querySelector('[data-seconds]')
 let userSelectedDate = []
 let timeSum = 0
 let totalTime = {}
@@ -42,16 +42,15 @@ btn.addEventListener("click", (e) => {
   totalTime = convertMs(timeSum)
   console.log(totalTime)
   let timer = setInterval(() => {
-    daysLeft.textContent = totalTime.days
-    hoursLeft.textContent = totalTime.hours
-    minutesLeft.textContent = totalTime.minutes
-    secondsLeft.textContent = totalTime.seconds
+    daysLeft.textContent = String(totalTime.days)
+    hoursLeft.textContent = String(totalTime.hours)
+    minutesLeft.textContent = String(totalTime.minutes)
+    secondsLeft.textContent = String(totalTime.seconds)
     timeSum -= 1000
     totalTime = convertMs(timeSum)
-    addZero(timeSum)
-    if (daysLeft.textContent && hoursLeft.textContent && minutesLeft.textContent && secondsLeft.textContent < 1) {
+    addZero(convertMs)
+    if (timeSum < 0) {
       clearInterval(timer)
-      btn.disabled = false;
       input.value = ""
       input.disabled = false;
     }
