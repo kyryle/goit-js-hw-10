@@ -42,13 +42,12 @@ btn.addEventListener("click", (e) => {
   totalTime = convertMs(timeSum)
   console.log(totalTime)
   let timer = setInterval(() => {
-    daysLeft.textContent = String(totalTime.days)
-    hoursLeft.textContent = String(totalTime.hours)
-    minutesLeft.textContent = String(totalTime.minutes)
-    secondsLeft.textContent = String(totalTime.seconds)
+    daysLeft.textContent = String(totalTime.days).padStart(2, "0")
+    hoursLeft.textContent = String(totalTime.hours).padStart(2, "0")
+    minutesLeft.textContent = String(totalTime.minutes).padStart(2, "0")
+    secondsLeft.textContent = String(totalTime.seconds).padStart(2, "0")
     timeSum -= 1000
     totalTime = convertMs(timeSum)
-    addZero(convertMs)
     if (timeSum < 0) {
       clearInterval(timer)
       input.value = ""
@@ -75,13 +74,4 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-}
-
-function addZero(time) {
-  return {
-    days: String(time.days).padStart(2, "0"),
-    hours: String(time.hours).padStart(2, "0"),
-    minutes: String(time.minutes).padStart(2, "0"),
-    seconds: String(time.seconds).padStart(2, "0")
-  }
 }
