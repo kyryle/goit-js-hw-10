@@ -3,7 +3,7 @@ import "izitoast/dist/css/iziToast.min.css";
 const input = document.querySelector("input[name='delay']")
 const resRadioCheck = document.querySelector("input[value='fulfilled']")
 const rejRadioCheck = document.querySelector("input[value='rejected']")
-const btn = document.querySelector("button")
+const form = document.querySelector("form.form")
 let delay = 0
 let promiseResult 
 input.addEventListener("input", e => {
@@ -18,14 +18,14 @@ rejRadioCheck.addEventListener("click", e => {
     promiseResult = false
     console.log(promiseResult)
 });
-btn.addEventListener("click", e => {
+form.addEventListener("submit", e => {
     e.preventDefault()
     const promise = new Promise((res, rej) => {
-        setTimeout((delay) => {
+        setTimeout(() => {
             if (promiseResult) {
-                res(`✅ Fulfilled promise in ${delay}ms`)
+                res()
             } else {
-                rej(`❌ Rejected promise in ${delay}ms`)
+                rej()
             }
         }, delay)
     })
@@ -33,10 +33,10 @@ btn.addEventListener("click", e => {
     promise.then(res => {
                 iziToast.show({
     message: `✅ Fulfilled promise in ${delay}ms`
-                }).catch(rej => {
+                })
+            }).catch(rej => {
                 iziToast.show({
     message: `❌ Rejected promise in ${delay}ms`
                 })
 })
-            })
 })
