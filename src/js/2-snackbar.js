@@ -23,9 +23,9 @@ form.addEventListener("submit", e => {
     const promise = new Promise((res, rej) => {
         setTimeout(() => {
             if (promiseResult) {
-                res()
+                res(delay)
             } else {
-                rej()
+                rej(delay)
             }
         }, delay)
     })
