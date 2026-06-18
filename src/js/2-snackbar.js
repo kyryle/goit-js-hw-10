@@ -32,11 +32,11 @@ form.addEventListener("submit", e => {
     
     promise.then(res => {
                 iziToast.show({
-    message: `✅ Fulfilled promise in ${delay}ms`
+    message: `✅ Fulfilled promise in ${res}ms`
                 })
             }).catch(rej => {
                 iziToast.show({
-    message: `❌ Rejected promise in ${delay}ms`
+    message: `❌ Rejected promise in ${rej}ms`
                 })
 })
 })
