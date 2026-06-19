@@ -1,8 +1,7 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 const input = document.querySelector("input[name='delay']")
-const resRadioCheck = document.querySelector("input[value='fulfilled']")
-const rejRadioCheck = document.querySelector("input[value='rejected']")
+const state = document.querySelector("fieldset")
 const form = document.querySelector("form.form") 
 let delay = 0
 let promiseResult
@@ -11,7 +10,7 @@ input.addEventListener("input", e => {
     console.log(delay)
     return delay
 });
-form.addEventListener("change", e => {
+state.addEventListener("change", e => {
     if (e.target.value === "fulfilled") {
         return promiseResult = true
     } else {
@@ -20,6 +19,12 @@ form.addEventListener("change", e => {
 })
 form.addEventListener("submit", e => {
     e.preventDefault()
+    delay = input.value
+    if (promiseResult === true) {
+        promiseResult = true
+    } else {
+        promiseResult = false
+    }
     const promise = new Promise((res, rej) => {
         setTimeout(() => {
             if (promiseResult) {
